@@ -1,0 +1,50 @@
+argocd-apps:
+  applications:
+    - name: argocd
+      namespace: argocd
+      project: argocd
+      source:
+        repoURL: git@github.com:rafnow1403/argocd-commons-dev.git
+        targetRevision: HEAD
+        path: argocd
+        helm:
+          version: v3
+          valueFiles:
+            - values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
+  #   - name: appofapps
+  #     namespace: argocd
+  #     project: argocd
+  #     source:
+  #       repoURL: git@github.com:rafnow1403/argocd-aoa-dev.git
+  #       targetRevision: HEAD
+  #       path: templates
+  #     destination:
+  #       server: https://kubernetes.default.svc
+  #       namespace: argocd
+  #     syncPolicy:
+  #       automated:
+  #         selfHeal: true
+  #       syncOptions:
+  #         - CreateNamespace=true
+
+  projects:
+    - name: argocd
+      namespace: argocd
+      description: ArgoCD project
+      destinations:
+        - namespace: argocd
+          server: https://kubernetes.default.svc
+      sourceRepos:
+      - '*'
+      clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
