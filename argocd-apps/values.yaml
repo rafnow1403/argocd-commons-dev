@@ -20,6 +20,26 @@ argocd-apps:
         syncOptions:
           - CreateNamespace=true
 
+    - name: argocd-apps
+      namespace: argocd
+      project: argocd
+      source:
+        repoURL: git@github.com:rafnow1403/argocd-commons-dev.git
+        targetRevision: HEAD
+        path: argocd-apps
+        helm:
+          version: v3
+          valueFiles:
+            - values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
     - name: aoa-dev
       namespace: argocd
       project: argocd
