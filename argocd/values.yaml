@@ -1,0 +1,18 @@
+argo-cd:
+  redis-ha:
+    enabled: false
+  controller:
+    replicas: 2
+  server:
+    replicas: 2
+  repoServer:
+    replicas: 2
+  applicationSet:
+    replicas: 2
+  configs:
+    secret:
+      argocdServerAdminPassword: $2a$10$Bk9SieceBmq4.dP/sQUfZ.RDArHqadJmgwzGYAZzhRVIOvNSEgjay
+
+  # server:
+  #   service:
+  #     type: LoadBalancer
